@@ -1,0 +1,6 @@
+1. Authentication
+2. Summary of data inside database are shows in every index page using DataTable Server-side to Prevent Overload
+3. All Request should be validated and sanitized before inserted to database
+4. Duplicate Data Prevention System on Front-End Create Forms and Back-End Controllers
+5. XSS Prevention System using Middleware named XSS to just sanitized all input using strip_tags
+6. Photo of siswa are saved on open public storage but can't retrieved by spiders due to robots.txt configuration
