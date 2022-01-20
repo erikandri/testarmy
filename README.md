@@ -64,3 +64,30 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# WeblogAPI
+
+<p align="center">
+    <img src="https://img.shields.io/badge/Laravel%20Framework-8.79.0-red?style=for-the-badge&logo=laravel" alt="Laravel Version">
+    <img src="https://img.shields.io/badge/version-7.3-red?style=for-the-badge&logo=php" alt="PHP Version">
+    <img src="https://img.shields.io/badge/author-Erik%20Andri%20Budiman-red?style=for-the-badge&logo=github" alt="Author">
+</p>
+
+This project builded with Laravel 8, Bootstrap 4.6 and Font-Awesome 5.
+This app contains:
+- [Authentication](https://laravel.com/docs/8.x/authentication)
+- Summary of data inside database are shows in every index page using [DataTable Server-side](https://datatables.net/manual/server-side) to Prevent Overload
+- All Request should be [Validated and Sanitized](https://laravel.com/docs/8.x/validation) before inserted to database
+- Duplicate Data Prevention System on Front-End Create Forms and Back-End Controllers
+- XSS Prevention System using [Middleware](https://laravel.com/docs/8.x/middleware) named XSS to just sanitized all input using strip_tags
+- Photo of siswa are saved on open public storage but can't retrieved by spiders and indexed due to robots.txt configuration
+
+Getting started with this repository:
+- Clone this project
+- Run "composer install"
+- Run "npm install && npm run dev"
+- Create .env file using .env.example
+- Define your Database name inside .env file then run "php artisan key:generate"
+- Migrate all tables using command "php artisan migrate"
+- App ready to launch, but i provide Seeder too if you want run it just enter command "php artisan db:seed" (Login info: email: erik@tes.com, password: admin)
+- Enjoy running this Test Laravel App
