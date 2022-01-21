@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Storage;
 	Route::post('/login', 'authenticate');
 })->name('login');*/
 
-Route::redirect('/', 'login');
+Route::redirect('/', 'login')->name('login');
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.auth');
 Route::resource('register', RegisterController::class)->only(['index', 'store']);
