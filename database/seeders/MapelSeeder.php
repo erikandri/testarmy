@@ -17,19 +17,24 @@ class MapelSeeder extends Seeder
         Mapel::create([
 			'nama' => 'Bahasa Indonesia',
 			'kelas_id' => '1'
-		], [
+		]);
+		Mapel::create([
 			'nama' => 'Matematika',
 			'kelas_id' => '1'
-		], [
+		]);
+		Mapel::create([
 			'nama' => 'Bahasa Indonesia',
 			'kelas_id' => '2'
-		], [
+		]);
+		Mapel::create([
 			'nama' => 'Matematika',
 			'kelas_id' => '2'
-		], [
+		]);
+		Mapel::create([
 			'nama' => 'Bahasa Indonesia',
 			'kelas_id' => '3'
-		], [
+		]);
+		Mapel::create([
 			'nama' => 'Matematika',
 			'kelas_id' => '3'
 		]);

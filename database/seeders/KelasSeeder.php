@@ -16,9 +16,11 @@ class KelasSeeder extends Seeder
     {
         Kelas::create([
 			'kelas' => '1'
-		], [
+		]);
+		Kelas::create([
 			'kelas' => '2'
-		], [
+		]);
+		Kelas::create([
 			'kelas' => '3'
 		]);
     }
