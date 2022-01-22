@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kelas;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Gate;
 
 class KelasController extends Controller
 {
@@ -96,15 +97,10 @@ class KelasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {	
         $validated = $request->validate([
-			'kelas' => ['required', 'integer']
+			'kelas' => ['required', 'integer', 'unique:kelas,kelas']
 		]);
-		
-		$ckel = Kelas::query()->where('kelas', $validated['kelas'])->pluck('id')->first();
-		if($ckel != $id) {
-			return back()->withInput()->withErrors(['kelas' => 'The kelas has already been taken by someone']);
-		}
 		
 		Kelas::query()->where('id', $id)->update($validated);
 		

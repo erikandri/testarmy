@@ -154,22 +154,12 @@ class SiswaController extends Controller
     {
         $validated = $request->validate([
 			'nama' => ['required'],
-			'nis' => ['required', 'integer'],
-			'nisn' => ['required', 'integer'],
+			'nis' => ['required', 'integer', 'unique:siswa,nis'],
+			'nisn' => ['required', 'integer', 'unique:siswa,nisn'],
 			//'foto' => ['required', 'file', 'image'],
 			'alamat' => ['required'],
 			'kelas_id' => ['required', 'integer']
 		]);
-		
-		// Pengecekan NIS dan NISN jika telah dimiliki siswa lain. Solusi apabila guru tidak mengubah nomor nis dan nisn, kalau pake unique pasti bakal terus di redirect meskipun itu data digunakan oleh dirinya sendiri
-		$cnis = Siswa::query()->where('nis', $validated['nis'])->pluck('id')->first();
-		if($cnis != $id) {
-			return back()->withInput()->withErrors(['nis' => 'The nis has already been taken by someone']);
-		}
-		$cnisn = Siswa::query()->where('nisn', $validated['nisn'])->pluck('id')->first();
-		if($cnisn != $id) {
-			return back()->withInput()->withErrors(['nisn' => 'The nisn has already been taken by someone']);
-		}
 		
 		// Pengecekan path file
 		$siswa = Siswa::find($id);
