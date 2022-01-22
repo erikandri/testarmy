@@ -109,7 +109,7 @@
 						<div class="col">
 						  <div class="card-body">
 							<h5 class="card-title">Data Kelas</h5>
-							<a href="{{ route('kelas.index') }}" class="card-link">Input Data Nilai</a>
+							<a href="{{ route('kelas.index') }}" class="card-link">Input Data Kelas</a>
 						  </div>
 						</div>
 					  </div>
@@ -124,7 +124,7 @@
 						<div class="col">
 						  <div class="card-body">
 							<h5 class="card-title">Data Ranking</h5>
-							<a href="{{ route('ranking') }}" class="card-link">Input Data Nilai</a>
+							<a href="{{ route('ranking') }}" class="card-link">Lihat Data Ranking</a>
 						  </div>
 						</div>
 					  </div>
