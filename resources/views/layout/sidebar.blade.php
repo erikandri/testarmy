@@ -4,8 +4,8 @@ $request = Request();
 ?>
 
 <style>
-	.nav-link {
-		margin-right: 1px;
+	li i.fa {
+		width: 10%;
 	}
 </style>
 
