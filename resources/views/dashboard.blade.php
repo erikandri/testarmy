@@ -3,8 +3,9 @@
 @push('plugin-styles')
 @endpush
 
+@section('halaman', 'Dashboard')
 @section('content')
-	@section('halaman', 'Dashboard')
+
     <div class="row">
 
         <div class="col-12 col-xl-12 stretch-card">
@@ -54,7 +55,7 @@
                     </div>
                 </div>
 				<hr class="mt-2">
-				
+
 				<div class="col-md-4 grid-margin stretch-card">
 					<div class="card">
 					  <div class="row no-gutters">
@@ -130,11 +131,11 @@
 					  </div>
 					</div>
 				</div>
-				
+
             </div>
-			
+
         </div>
-		
+
     </div> <!-- row -->
 
 @endsection

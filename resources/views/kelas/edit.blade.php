@@ -3,8 +3,8 @@
 @push('plugin-styles')
 @endpush
 
+@section('halaman', 'Edit Data Kelas')
 @section('content')
-    @section('halaman', 'Edit Data Kelas')
 
     <div class="row">
 
@@ -34,6 +34,8 @@
                 </div>
             </div>
         </div>
+
+    </div>
 
 @endsection
 

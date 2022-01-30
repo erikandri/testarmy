@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Mapel;
 use App\Models\Kelas;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
 class MapelController extends Controller
@@ -12,16 +14,19 @@ class MapelController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
         $jumlah = Mapel::query()->count();
-		
+
 		return view('mapel.index', ['jumlah' => $jumlah]);
     }
-	
-	public function getDataMapel(Request $request)
+
+    /**
+     * @throws \Exception
+     */
+    public function getDataMapel(Request $request)
 	{
 		if ($request->ajax()) {
             $data = Mapel::with(['kelas'])->get();
@@ -44,7 +49,7 @@ class MapelController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -56,23 +61,21 @@ class MapelController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
+        $kelas_id = (int) $request->input('kelas_id');
         $validated = $request->validate([
-			'nama' => ['required'],
+			'nama' => ['required', Rule::unique('mapel', 'nama')->where(function ($request) use ($kelas_id) {
+			    $request->where('kelas_id', $kelas_id);
+            })],
 			'kelas_id' => ['required']
 		]);
-		
-		$check = Mapel::query()->where('nama', $validated['nama'])->where('kelas_id', $validated['kelas_id'])->count();
-		if(!empty($check)) {
-			return back()->withInput()->withErrors(['nama' => 'The nama has already been taken', 'kelas_id' => 'The kelas id has already been taken']);
-		}
-		
-		Mapel::create($validated);
-		
-		return redirect()->route('mapel.index');
+
+		$mapel = Mapel::query()->create($validated);
+
+		return redirect()->route('mapel.index')->with('controller_feedback', 'Berhasil Membuat Mata Pelajaran ' . $validated['nama'] . ' di Kelas ' . $mapel->kelas->kelas . ' !');
     }
 
     /**
@@ -89,15 +92,15 @@ class MapelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
 		// Ambil data mapel
-		$mapel = Mapel::find($id);
+		$mapel = Mapel::query()->find($id);
 		$kelas = Kelas::all(['id', 'kelas']);
-		
+
         return view('mapel.edit', ['data' => $mapel, 'kelas' => $kelas]);
     }
 
@@ -106,30 +109,46 @@ class MapelController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
+        $kelas_id = (int) $request->input('kelas_id');
         $validated = $request->validate([
-			'nama' => ['required'],
-			'kelas_id' => ['required']
+			'nama' => ['required', Rule::unique('mapel', 'nama')->where(function ($query) use ($kelas_id) {
+			    return $query->where('kelas_id', $kelas_id);
+            })->ignore($id)],
+			'kelas_id' => ['required', 'integer']
 		]);
-		
+
+		$kelasquery = Kelas::query()->find($kelas_id);
+		$kelas = $kelasquery->getAttribute('kelas');
 		Mapel::query()->where('id', $id)->update($validated);
-		
-		return redirect()->route('mapel.index');
+
+		return redirect()->route('mapel.index')->with('controller_feedback', 'Berhasil Memperbarui Mata Pelajaran ' . $validated['nama'] . ' di Kelas ' . $kelas . ' !');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
+        $mapel = Mapel::query()->find($id);
+
+        // Periksa Relasi Tabel
+        $checkRelation = array();
+        $checkRelation[] = $mapel->getRelationValue('nilai');
+        foreach($checkRelation as $value) {
+            if ($value !== null) {
+                return redirect()->route('mapel.index')->with('relation', 'Tabel ini memiliki relasi ke tabel Nilai, Pastikan anda menghapus semua data relasi sebelum menghapus Data Mata Pelajaran ' . $mapel->getAttribute('nama') . ' di kelas ' . $mapel->kelas->kelas . '!');
+            }
+        }
+
         Mapel::destroy($id);
-		
-		return redirect()->route('mapel.index');
+
+		return redirect()->route('mapel.index')->with('controller_feedback', 'Berhasil Menghapus Mata Pelajaran ' . $mapel->getAttribute('nama') . ' di Kelas ' . $mapel->getRelationValue('kelas')->kelas . ' !');
     }
 }

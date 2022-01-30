@@ -4,8 +4,8 @@
     <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet"/>
 @endpush
 
+@section('halaman', 'Data Nilai')
 @section('content')
-    @section('halaman', 'Data Nilai')
 
     <div class="row">
 
@@ -28,12 +28,33 @@
                     </div>
                 </div>
 
+                @if(session('controller_feedback'))
+                    <div class="position-fixed top-1 right-0 p-3" style="z-index: 1; top: 1; right: 0;" id="flashToast">
+                        <div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="5000">
+                            <div class="toast-header">
+                                <img src="https://assets.stickpng.com/images/58480e35cef1014c0b5e4920.png" height="20px"
+                                     class="rounded mr-2" alt="Favicon">
+                                <strong class="mr-2">Notifikasi Sistem</strong>
+                                <small>just now</small>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                {{ session('controller_feedback') }}
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
             </div>
+
         </div>
+
     </div> <!-- row -->
 
     <div class="row">
-	
+
 		<div class="col-md-12 grid-margin stretch-card">
 			<a class="btn btn-primary" href="{{ route('nilai.create') }}">Tambah Nilai Baru</a>
 		</div>
@@ -48,6 +69,7 @@
                             <tr>
                                 <th>Siswa</th>
                                 <th>Mata Pelajaran</th>
+                                <th>Kelas</th>
                                 <th>Nilai</th>
                                 <th class="text-right">AKSI</th>
                             </tr>
@@ -60,7 +82,6 @@
 
     </div> <!-- row -->
 
-
 @endsection
 
 @push('plugin-scripts')
@@ -70,8 +91,12 @@
 
 @push('custom-scripts')
     <script type="text/javascript">
-		var tabel = $("#nilaiTable");
-		
+        @if(session('controller_feedback'))
+            $('#flashToast .toast').toast('show')
+        @endif
+
+        const tabel = $("#nilaiTable");
+
 		tabel.DataTable({
             processing: true,
             serverSide: true,
@@ -81,6 +106,7 @@
             columns: [
                 {data: 'siswa', name: 'siswa'},
                 {data: 'mapel', name: 'mapel', orderable: false, searchable: false},
+                {data: 'kelas', name: 'kelas', orderale: false, searchable: false},
                 {data: 'nilai', name: 'nilai', orderable: false, searchable: false},
                 {data: 'aksi', name: 'aksi', orderable: false, searchable: false}
             ],
@@ -91,20 +117,20 @@
 				search: "Cari nama siswa"
 			}
         });
-		
+
 		tabel.on('click', '.btn-edit', function () {
 			// Ambi data yang diperlukan
-			var id = $(this).data("id")
+            const id = $(this).data("id")
 			window.location.href = "/nilai/" + id + "/edit"
 		});
-			
+
         tabel.on('click', '.btn-hapus', function () {
             // Ambil data yang diperlukan
-            var id = $(this).data("id")
-            var token = "{{ csrf_token() }}"
+            const id = $(this).data("id")
+            const token = "{{ csrf_token() }}"
 
-            var url = "nilai/" + id;
-            var form = $('<form action="' + url + '" method="POST" style="display: none;">' +
+            const url = "nilai/" + id;
+            const form = $('<form action="' + url + '" method="POST" style="display: none;">' +
                 '<input type="hidden" name="_token" value="' + token + '" readonly />' +
                 '<input type="hidden" name="_method" value="DELETE" readonly />' +
                 '<input type="hidden" name="id" value="' + id + '" readonly />');

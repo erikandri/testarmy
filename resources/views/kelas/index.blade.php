@@ -4,8 +4,8 @@
     <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet"/>
 @endpush
 
+@section('halaman', 'Data Kelas')
 @section('content')
-    @section('halaman', 'Data Kelas')
 
     <div class="row">
 
@@ -28,15 +28,42 @@
                     </div>
                 </div>
 
+				@if(session('controller_feedback'))
+                    <div class="position-fixed top-1 right-0 p-3" style="z-index: 1; top: 1; right: 0;" id="flashToast">
+                        <div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="5000">
+                            <div class="toast-header">
+                                <img src="https://assets.stickpng.com/images/58480e35cef1014c0b5e4920.png" height="20px"
+                                     class="rounded mr-2" alt="Favicon">
+                                <strong class="mr-2">Notifikasi Sistem</strong>
+                                <small>just now</small>
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="toast-body">
+                                {{ session('controller_feedback') }}
+                            </div>
+                        </div>
+                    </div>
+				@endif
+
             </div>
+
         </div>
+
     </div> <!-- row -->
 
     <div class="row">
-	
+
 		<div class="col-md-12 grid-margin stretch-card">
 			<a class="btn btn-primary" href="{{ route('kelas.create') }}">Tambah Kelas Baru</a>
 		</div>
+
+        @if(session('relation'))
+            <div class="col-md-12 grid-margin stretch-card mb-0">
+                <small class="alert alert-danger">Peringatan: {{ session('relation') }}</small>
+            </div>
+        @endif
 
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
@@ -68,9 +95,13 @@
 
 @push('custom-scripts')
     <script type="text/javascript">
-		var tabel = $("#kelasTable");
-		
-		tabel.DataTable({
+		@if(session('controller_feedback'))
+			$('#flashToast .toast').toast('show')
+		@endif
+
+        const tabel = $("#kelasTable");
+
+        tabel.DataTable({
             processing: true,
             serverSide: true,
             ajax: {
@@ -87,20 +118,20 @@
 				search: "Cari kelas"
 			}
         });
-		
+
 		tabel.on('click', '.btn-edit', function () {
 			// Ambi data yang diperlukan
-			var id = $(this).data("id")
-			window.location.href = "/kelas/" + id + "/edit"
+            const id = $(this).data("id");
+            window.location.href = "/kelas/" + id + "/edit"
 		});
-			
+
         tabel.on('click', '.btn-hapus', function () {
             // Ambil data yang diperlukan
-            var id = $(this).data("id")
-            var token = "{{ csrf_token() }}"
+            const id = $(this).data("id");
+            const token = "{{ csrf_token() }}";
 
-            var url = "kelas/" + id;
-            var form = $('<form action="' + url + '" method="POST" style="display: none;">' +
+            const url = "kelas/" + id;
+            const form = $('<form action="' + url + '" method="POST" style="display: none;">' +
                 '<input type="hidden" name="_token" value="' + token + '" readonly />' +
                 '<input type="hidden" name="_method" value="DELETE" readonly />' +
                 '<input type="hidden" name="id" value="' + id + '" readonly />');

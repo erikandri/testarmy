@@ -33,7 +33,7 @@
                         <ul class="profile-nav p-0 pt-3">
                             <li class="nav-item">
                                 <a href="{{ route('logout') }}" class="btn btn-sm">
-									<i class="fa fas fa-sign-out-alt"></i>
+									<i class="fa fas fa-sign-out-alt" style="width: 30px;"></i>
 									Log Out
 								</a>
                             </li>
@@ -47,7 +47,7 @@
 
 <script type="text/javascript">
     function logout() {
-        var form = $('<form action="{{ route('logout') }}" method="POST" style="display: none;">' +
+        const form = $('<form action="{{ route('logout') }}" method="POST" style="display: none;">' +
             '<input type="hidden" name="_token" value="{{ csrf_token() }}" readonly />');
         $("body").append(form);
         form.submit();

@@ -16,22 +16,28 @@ class RankingController extends Controller
     public function index()
     {
         $jumlah = Nilai::query()->count();
-		
+
 		return view('ranking.index', ['jumlah' => $jumlah]);
     }
-	
-	public function getDataRanking(Request $request)
+
+    /**
+     * @throws \Exception
+     */
+    public function getDataRanking(Request $request)
 	{
 		if ($request->ajax()) {
-            $data = Nilai::query()->with('siswa:id,nama')->groupBy('siswa_id')->selectRaw('sum(nilai) as total, siswa_id')->get();
+            $data = Nilai::query()->with('siswa:id,nama,kelas_id')->groupBy('siswa_id')->selectRaw('sum(nilai) as total, siswa_id')->get();
             return DataTables::of($data)
 				->addColumn('siswa', function ($d) {
 					return $d->siswa->nama;
 				})
+                ->addColumn('kelas', function ($d) {
+                    return $d->siswa->kelas->kelas;
+                })
 				->addColumn('nilai', function ($d) {
 					return $d->total;
 				})
-                ->rawColumns(['siswa', 'nilai'])
+                ->rawColumns(['siswa', 'kelas', 'nilai'])
                 ->make(true);
         }
 	}

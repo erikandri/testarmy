@@ -4,8 +4,8 @@
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
 @endpush
 
+@section('halaman', 'Edit Data Nilai')
 @section('content')
-    @section('halaman', 'Edit Data Nilai')
 
     <div class="row">
 
@@ -41,6 +41,8 @@
                 </div>
             </div>
         </div>
+
+    </div>
 
 @endsection
 

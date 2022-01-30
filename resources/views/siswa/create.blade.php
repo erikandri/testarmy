@@ -5,8 +5,8 @@
 	<link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
 @endpush
 
+@section('halaman', 'Tambah Data Siswa')
 @section('content')
-    @section('halaman', 'Tambah Data Siswa')
 
     <div class="row">
 
@@ -82,7 +82,7 @@
                             <label for="kelas_id">Kelas</label>
 							<select class="select2-single form-control @error('kelas_id') is-invalid @enderror" id="kelas_id" name="kelas_id">
 								@foreach($kelas as $d)
-									<option value="{{ $d->id }}">{{ $d->kelas }}</option>
+									<option value="{{ $d->id }}" @if((int) old('kelas_id') === (int) $d->id) selected @endif>{{ $d->kelas }}</option>
 								@endforeach
 							</select>
 
@@ -97,6 +97,8 @@
                 </div>
             </div>
         </div>
+
+    </div>
 
 @endsection
 

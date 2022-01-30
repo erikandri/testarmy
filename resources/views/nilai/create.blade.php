@@ -5,29 +5,29 @@ use App\Models\Nilai;
 use App\Models\Siswa;
 use App\Models\Mapel;
 
-function mapelExist($siswa_id, $mapel_id)
+function mapelExist($siswa_id, $mapel_id): bool
 {
 	$siswa_id = (int) $siswa_id;
 	$mapel_id = (int) $mapel_id;
 	$check = Nilai::query()->where('siswa_id', $siswa_id)->where('mapel_id', $mapel_id)->count();
-	
+
 	return (bool) $check;
 }
 
-function siswaExist($siswa_id)
+function siswaExist($siswa_id): bool
 {
 	$siswa_id = (int) $siswa_id;
-	$check = Siswa::find($siswa_id);
-	
+	$check = Siswa::query()->find($siswa_id);
+
 	return (bool) !empty($check);
 }
 
 function getMapel($siswa_id)
 {
-	$kelas_id = Siswa::find($siswa_id)->kelas_id;
-	$mapel = Mapel::query()->where('kelas_id', $kelas_id)->get();
-	
-	return $mapel;
+	$query = Siswa::query()->find($siswa_id);
+	$kelas_id = !empty($query) ? $query->getAttribute('kelas_id') : null;
+
+	return !empty($kelas_id) ? Mapel::query()->where('kelas_id', $kelas_id)->get() : '-';
 }
 
 ?>
@@ -38,8 +38,8 @@ function getMapel($siswa_id)
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
 @endpush
 
+@section('halaman', 'Tambah Data Nilai')
 @section('content')
-    @section('halaman', 'Tambah Data Nilai')
 
     <div class="row">
 
@@ -105,6 +105,8 @@ function getMapel($siswa_id)
                 </div>
             </div>
         </div>
+
+    </div>
 
 @endsection
 

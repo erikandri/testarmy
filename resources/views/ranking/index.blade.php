@@ -4,8 +4,8 @@
     <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet"/>
 @endpush
 
+@section('halaman', 'Data Ranking')
 @section('content')
-    @section('halaman', 'Data Ranking')
 
     <div class="row">
 
@@ -29,7 +29,9 @@
                 </div>
 
             </div>
+
         </div>
+
     </div> <!-- row -->
 
     <div class="row">
@@ -43,6 +45,7 @@
                             <thead>
                             <tr>
                                 <th>Nama Siswa</th>
+                                <th>Kelas</th>
                                 <th>Total Nilai</th>
                             </tr>
                             </thead>
@@ -54,7 +57,6 @@
 
     </div> <!-- row -->
 
-
 @endsection
 
 @push('plugin-scripts')
@@ -65,7 +67,7 @@
 @push('custom-scripts')
     <script type="text/javascript">
 		var tabel = $("#rankingTable");
-		
+
 		tabel.DataTable({
             processing: true,
             serverSide: true,
@@ -73,17 +75,18 @@
                 url: "{{ route('data.ranking') }}",
             },
             columns: [
-                {data: 'siswa', name: 'siswa'},
+                {data: 'siswa', name: 'siswa', orderable: false},
+                {data: 'kelas', name: 'kelas', orderable:false},
                 {data: 'nilai', name: 'nilai', searchable: false}
             ],
 			order: [
-				['1', 'desc']
+				['2', 'desc']
 			],
 			columnDefs: [
                 {defaultContent: "-", targets: "_all"}
             ],
 			language: {
-				search: "Cari nama siswa"
+				search: "Cari nama siswa atau kelas"
 			}
         });
     </script>
