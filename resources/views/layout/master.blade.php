@@ -128,7 +128,6 @@
 
 <!-- common js -->
 <script src="{{ asset('assets/js/template.js') }}"></script>
-@push('plugin-styles')
 <!-- end common js -->
 
 @stack('custom-scripts')
