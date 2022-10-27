@@ -43,7 +43,7 @@ class NilaiController extends Controller
                 ->addColumn('aksi', function ($d) {
                     return
                         '<div class="text-right"><div class="btn-group" role="group">
-                            <button type="button" class="btn btn-warning btn-edit" data-id="' . $d->id . '"><i class="fa fas fa-pencil-alt text-white"></i></button>
+                            <button type="button" class="btn btn-warning btn-edit" data-id="' . $d->id . '"><i class="fa fas fa-pencil text-white"></i></button>
                             <button type="button" class="btn btn-danger btn-hapus" data-id="' . $d->id . '"><i class="fa fas fa-trash"></i></button>
                         </div></div>';
                 })
