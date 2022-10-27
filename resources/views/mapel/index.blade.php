@@ -1,8 +1,6 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-    <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet"/>
 @endpush
 
 @section('halaman', 'Data Mata Pelajaran')
@@ -90,8 +88,6 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
 @endpush
 
 @push('custom-scripts')

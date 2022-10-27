@@ -141,9 +141,7 @@
 @endsection
 
 @push('plugin-scripts')
-
 @endpush
 
 @push('custom-scripts')
-    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 @endpush

@@ -1,7 +1,6 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-    <link href="{{ asset('assets/plugins/datatables-net/dataTables.bootstrap4.css') }}" rel="stylesheet"/>
 @endpush
 
 @section('halaman', 'Profil Siswa')
@@ -47,7 +46,7 @@
                                     <i class="fa fas fa-arrow-left"></i> Kembali ke halaman siswa
                                 </a>
                                 <a href="{{ route('siswa.edit', ['siswa' => $data->id]) }}" class="btn btn-warning text-white">
-                                    <i class="fa fas fa-pencil-alt"></i> Edit Siswa Ini
+                                    <i class="fa fas fa-pencil"></i> Edit Siswa Ini
                                 </a>
                             </div>
                         </div>
@@ -62,8 +61,6 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-net-bs4/dataTables.bootstrap4.js') }}"></script>
 @endpush
 
 @push('custom-scripts')

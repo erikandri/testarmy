@@ -35,7 +35,6 @@ function getMapel($siswa_id)
 @extends('layout.master')
 
 @push('plugin-styles')
-    <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
 @endpush
 
 @section('halaman', 'Tambah Data Nilai')
@@ -111,7 +110,6 @@ function getMapel($siswa_id)
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
