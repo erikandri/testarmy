@@ -1,1 +1,12 @@
-require('./bootstrap');
+// require('./bootstrap');
+window.Popper = require("popper.js").default;
+global.$ = global.jQuery = require("jquery");
+window.PerfectScrollbar = require("perfect-scrollbar").default;
+import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap-datepicker';
+import 'datatables.net/js/jquery.dataTables';
+import 'datatables.net-bs4/js/dataTables.bootstrap4';
+import 'select2';
+import 'dropify';
+import './template';
+import './dashboard';

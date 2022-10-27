@@ -1,5 +1,4 @@
-
-// Booststrap functions and variables
+// Bootstrap functions and variables
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
@@ -67,30 +66,29 @@
 @import "components/auth";
 
 // Email
-@import 'components/email/inbox';
-@import 'components/email/email-read';
-@import 'components/email/email-compose';
-
+//@import 'components/email/inbox';
+//@import 'components/email/email-read';
+//@import 'components/email/email-compose';
 
 // Plugin overrides
-@import "components/plugin-overrides/ace";
-@import "components/plugin-overrides/apex-charts";
+//@import "components/plugin-overrides/ace";
+//@import "components/plugin-overrides/apex-charts";
 @import "components/plugin-overrides/bootstrap-datepicker";
 @import "components/plugin-overrides/data-tables";
-@import "components/plugin-overrides/dropify";
-@import "components/plugin-overrides/dropzone";
-@import "components/plugin-overrides/full-calendar";
-@import "components/plugin-overrides/jquery-flot";
-@import "components/plugin-overrides/peity";
+//@import "components/plugin-overrides/dropify";
+//@import "components/plugin-overrides/dropzone";
+//@import "components/plugin-overrides/full-calendar";
+//@import "components/plugin-overrides/jquery-flot";
+//@import "components/plugin-overrides/peity";
 @import "components/plugin-overrides/perfect-scrollbar";
-@import "components/plugin-overrides/sweet-alert";
+//@import "components/plugin-overrides/sweet-alert";
 @import "components/plugin-overrides/select2";
-@import "components/plugin-overrides/simplemde";
-@import "components/plugin-overrides/tags-input";
-@import "components/plugin-overrides/tempusdominus-bootstrap-4";
-@import "components/plugin-overrides/tinymce";
-@import "components/plugin-overrides/typeahead";
-@import "components/plugin-overrides/wizard";
+//@import "components/plugin-overrides/simplemde";
+//@import "components/plugin-overrides/tags-input";
+//@import "components/plugin-overrides/tempusdominus-bootstrap-4";
+//@import "components/plugin-overrides/tinymce";
+//@import "components/plugin-overrides/typeahead";
+//@import "components/plugin-overrides/wizard";
 
 // Custom scss
 @import "custom";
